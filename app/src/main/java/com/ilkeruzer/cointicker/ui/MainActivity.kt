@@ -25,12 +25,16 @@ class MainActivity : AppCompatActivity() {
     private fun allCoinObserve() {
         viewModel.coinResponse.observe(this, {
             when (it.status) {
-                STATUS_LOADING -> {}
+                STATUS_LOADING -> {
+                }
                 STATUS_SUCCESS -> {
-                    Log.d("MainActivity",it.responseObject.toString())
+                    it.responseObject?.let { list ->
+                        viewModel.insertLocalDb(list)
+                    }
+                    Log.d("MainActivity", it.responseObject.toString())
                 }
                 STATUS_ERROR -> {
-                    Log.e("MainActivity",it.errorMessage)
+                    Log.e("MainActivity", it.errorMessage)
                 }
             }
         })
