@@ -11,12 +11,13 @@ android {
 
     defaultConfig {
         applicationId "com.ilkeruzer.cointicker"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'PROJECT_URL', "\"https://api.coingecko.com/api/v3/\""
     }
 
     buildTypes {
