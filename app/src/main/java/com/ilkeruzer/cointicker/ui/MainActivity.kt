@@ -3,23 +3,46 @@ package com.ilkeruzer.cointicker.ui
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilkeruzer.cointicker.databinding.ActivityMainBinding
+import com.ilkeruzer.cointicker.ui.adapter.CoinAdapter
 import com.murgupluoglu.request.STATUS_ERROR
 import com.murgupluoglu.request.STATUS_LOADING
 import com.murgupluoglu.request.STATUS_SUCCESS
+import kotlinx.coroutines.flow.collectLatest
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
+    private val coinAdapter by inject<CoinAdapter>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        initPagerAdapter()
         allCoinObserve()
+        allLocalDbCoinObserve()
+    }
+
+    private fun initPagerAdapter() {
+        binding.recList.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = coinAdapter
+        }
+    }
+
+    private fun allLocalDbCoinObserve() {
+        lifecycleScope.launchWhenCreated  {
+            viewModel.flow.collectLatest { pagingData ->
+                coinAdapter.submitData(pagingData)
+            }
+        }
     }
 
     private fun allCoinObserve() {

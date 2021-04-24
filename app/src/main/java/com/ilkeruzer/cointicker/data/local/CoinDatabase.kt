@@ -1,6 +1,7 @@
 package com.ilkeruzer.cointicker.data.local
 
 import android.content.Context
+import androidx.paging.PagingSource
 import androidx.room.*
 
 @Database(
@@ -34,6 +35,9 @@ interface CoinDao {
 
     @Query("DELETE FROM coins")
     suspend fun clearStation()
+
+    @Query("SELECT * FROM coins")
+    fun getAllCoins(): PagingSource<Int, CoinDbModel>
 
 
 }
