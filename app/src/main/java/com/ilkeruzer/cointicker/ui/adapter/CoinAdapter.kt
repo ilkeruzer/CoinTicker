@@ -53,7 +53,8 @@ class CoinAdapter :
         private var binding = itemView
 
         fun bind(data: CoinDbModel) {
-            binding.textView.text = data.name
+            binding.nameTextView.text = data.name
+            binding.symbolTextView.text = data.symbol
             Log.d("count",data.code)
         }
     }

@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilkeruzer.cointicker.databinding.ActivityMainBinding
 import com.ilkeruzer.cointicker.ui.adapter.CoinAdapter
 import com.murgupluoglu.request.STATUS_ERROR
 import com.murgupluoglu.request.STATUS_LOADING
 import com.murgupluoglu.request.STATUS_SUCCESS
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -42,6 +46,13 @@ class MainActivity : AppCompatActivity() {
             viewModel.flow.collectLatest { pagingData ->
                 coinAdapter.submitData(pagingData)
             }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            coinAdapter.loadStateFlow.distinctUntilChangedBy { it.refresh }
+                .filter { it.refresh is LoadState.NotLoading }.collect {
+                    binding.recList.scrollToPosition(0)
+                }
         }
     }
 
