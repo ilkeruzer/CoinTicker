@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ilkeruzer.cointicker.databinding.ActivityDetailBinding
-import com.ilkeruzer.cointicker.util.extention.htmlToString
-import com.ilkeruzer.cointicker.util.extention.loadImageUrl
-import com.ilkeruzer.cointicker.util.extention.toCurrency
+import com.ilkeruzer.cointicker.util.extention.*
 import com.murgupluoglu.request.STATUS_ERROR
 import com.murgupluoglu.request.STATUS_LOADING
 import com.murgupluoglu.request.STATUS_SUCCESS
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Suppress("DeferredResultUnused")
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
@@ -22,6 +21,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.getCoin("bitcoin")
         coinObserve()
 
     }
@@ -30,9 +30,11 @@ class DetailActivity : AppCompatActivity() {
         viewModel.coinResponse.observe(this, {
             when (it.status) {
                 STATUS_LOADING -> {
+                   binding.container.setGone()
                 }
                 STATUS_SUCCESS -> {
                     it.responseObject?.let { response ->
+                        binding.container.setVisible()
                         binding.imageView.loadImageUrl(response.image.large)
                         binding.titleTextView.text = response.name
                         binding.priceTextView.text = response.marketData.currentPrice.usd.toCurrency()
@@ -45,9 +47,15 @@ class DetailActivity : AppCompatActivity() {
                     Log.d("Detail Response", it.responseObject.toString())
                 }
                 STATUS_ERROR -> {
+                    binding.container.setGone()
                     Log.e("Detail Response", it.errorMessage)
                 }
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.getCoin("bitcoin").cancel()
     }
 }
