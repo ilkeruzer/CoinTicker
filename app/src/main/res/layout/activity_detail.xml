@@ -19,10 +19,11 @@
         android:layout_width="86dp"
         android:layout_height="86dp"
         android:layout_marginTop="32dp"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@color/design_default_color_primary" />
+        tools:src="@mipmap/ic_launcher" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/titleTextView"
@@ -190,7 +191,7 @@
                 android:padding="12dp">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/descriptionTextView"
+                    android:id="@+id/descriptionTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/baloo_paaji"
@@ -200,15 +201,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/descriptionView"
+                    android:id="@+id/descriptionTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/baloo"
                     tools:text="@string/lorem"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/descriptionTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+                    app:layout_constraintStart_toStartOf="@+id/descriptionTitleTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/descriptionTitleTextView" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
