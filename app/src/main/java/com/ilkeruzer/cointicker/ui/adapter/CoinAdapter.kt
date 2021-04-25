@@ -14,6 +14,8 @@ import com.ilkeruzer.cointicker.databinding.ItemCoinLayoutBinding
 class CoinAdapter :
         PagingDataAdapter<CoinDbModel, CoinAdapter.ViewHolder>(POST_COMPARATOR) {
 
+    private var listener: CoinAdapterListener? = null
+
     companion object {
         val POST_COMPARATOR = object : DiffUtil.ItemCallback<CoinDbModel>() {
             override fun areContentsTheSame(oldItem: CoinDbModel, newItem: CoinDbModel): Boolean =
@@ -56,7 +58,19 @@ class CoinAdapter :
             binding.nameTextView.text = data.name
             binding.symbolTextView.text = data.symbol
             Log.d("count",data.code)
+
+            binding.root.setOnClickListener {
+                listener?.coinAdapterItemClicked(data)
+            }
         }
+    }
+
+    interface CoinAdapterListener {
+        fun coinAdapterItemClicked(data: CoinDbModel)
+    }
+
+    fun setListener(listener: CoinAdapterListener) {
+        this.listener = listener
     }
 
 }

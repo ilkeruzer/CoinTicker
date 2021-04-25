@@ -1,6 +1,7 @@
 package com.ilkeruzer.cointicker.ui.activity.main
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -11,7 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilkeruzer.cointicker.R
+import com.ilkeruzer.cointicker.data.local.CoinDbModel
 import com.ilkeruzer.cointicker.databinding.ActivityMainBinding
+import com.ilkeruzer.cointicker.ui.activity.detail.DetailActivity
 import com.ilkeruzer.cointicker.ui.adapter.CoinAdapter
 import com.murgupluoglu.request.STATUS_ERROR
 import com.murgupluoglu.request.STATUS_LOADING
@@ -24,7 +27,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
@@ -46,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
             adapter = coinAdapter
         }
+        coinAdapter.setListener(this)
     }
 
     private fun allLocalDbCoinObserve(search: String = "") {
@@ -124,5 +128,9 @@ class MainActivity : AppCompatActivity() {
 
             return true
         }
+    }
+
+    override fun coinAdapterItemClicked(data: CoinDbModel) {
+        startActivity(Intent(this,DetailActivity::class.java))
     }
 }
