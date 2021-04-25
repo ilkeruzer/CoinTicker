@@ -1,4 +1,4 @@
-package com.ilkeruzer.cointicker.ui
+package com.ilkeruzer.cointicker.ui.activity.main
 
 
 import android.os.Bundle

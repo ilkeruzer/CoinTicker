@@ -1,4 +1,4 @@
-package com.ilkeruzer.cointicker.ui
+package com.ilkeruzer.cointicker.ui.activity.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
