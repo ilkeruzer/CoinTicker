@@ -51,7 +51,7 @@ interface CoinDao {
 @Parcelize
 data class CoinDbModel(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    val code: String,
-    val symbol: String,
-    val name: String
+    val code: String = "",
+    val symbol: String = "",
+    val name: String = ""
 ) : Parcelable

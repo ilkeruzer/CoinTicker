@@ -15,6 +15,7 @@ import com.ilkeruzer.cointicker.R
 import com.ilkeruzer.cointicker.data.local.CoinDbModel
 import com.ilkeruzer.cointicker.databinding.ActivityMainBinding
 import com.ilkeruzer.cointicker.ui.activity.detail.DetailActivity
+import com.ilkeruzer.cointicker.ui.activity.favorites.FavoriteActivity
 import com.ilkeruzer.cointicker.ui.adapter.CoinAdapter
 import com.murgupluoglu.request.STATUS_ERROR
 import com.murgupluoglu.request.STATUS_LOADING
@@ -87,7 +88,9 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-
+            R.id.action_favorite -> {
+                startActivity(Intent(this,FavoriteActivity::class.java))
+            }
         }
 
         return true
