@@ -26,7 +26,12 @@ class MainViewModel(
     val coinResponse: LiveData<RESPONSE<List<CoinResponse>>> = _coinResponse
 
     init {
+        clearAllCoin()
         getAllCoin()
+    }
+
+    private fun clearAllCoin() = CoroutineScope(Dispatchers.IO).launch {
+        coinDatabase.coinDao().clearStation()
     }
 
     private fun getAllCoin() {
@@ -51,10 +56,14 @@ class MainViewModel(
         coinDatabase.coinDao().insertAll(dbList)
     }
 
-    val flow = Pager(
+    fun flow(search: String = "") = Pager(
         PagingConfig(pageSize = 20)
     ) {
-        coinDatabase.coinDao().getAllCoins()
+        if (search == "") {
+            coinDatabase.coinDao().getAllCoins()
+        } else {
+            coinDatabase.coinDao().getCoinsBySearch(search)
+        }
     }.flow
         .cachedIn(viewModelScope)
 }

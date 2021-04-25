@@ -39,6 +39,9 @@ interface CoinDao {
     @Query("SELECT * FROM coins")
     fun getAllCoins(): PagingSource<Int, CoinDbModel>
 
+    @Query("SELECT * FROM coins WHERE name LIKE :param OR symbol LIKE :param")
+    fun getCoinsBySearch(param: String): PagingSource<Int, CoinDbModel>
+
 
 }
 
