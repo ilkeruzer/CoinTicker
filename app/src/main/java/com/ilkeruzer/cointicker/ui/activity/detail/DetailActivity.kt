@@ -1,13 +1,12 @@
 package com.ilkeruzer.cointicker.ui.activity.detail
 
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
-import com.ilkeruzer.cointicker.R
+import androidx.appcompat.app.AppCompatActivity
 import com.ilkeruzer.cointicker.databinding.ActivityDetailBinding
+import com.ilkeruzer.cointicker.util.extention.htmlToString
 import com.ilkeruzer.cointicker.util.extention.loadImageUrl
+import com.ilkeruzer.cointicker.util.extention.toCurrency
 import com.murgupluoglu.request.STATUS_ERROR
 import com.murgupluoglu.request.STATUS_LOADING
 import com.murgupluoglu.request.STATUS_SUCCESS
@@ -34,20 +33,14 @@ class DetailActivity : AppCompatActivity() {
                 }
                 STATUS_SUCCESS -> {
                     it.responseObject?.let { response ->
-                        binding.titleTextView.text = response.name
-                        binding.priceTextView.text = response.marketData.currentPrice.usd.toString()
-                        binding.lowestTextView.text =
-                            response.marketData.lowestPrice24h.usd.toString()
-                        binding.highestTextView.text =
-                            response.marketData.highestPrice24h.usd.toString()
-                        binding.hashTextView.text = response.hashingAlgorithm
-                        binding.descriptionTextView.text =
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                Html.fromHtml(response.description.en, Html.FROM_HTML_MODE_COMPACT)
-                            } else {
-                                Html.fromHtml(response.description.en)
-                            }
                         binding.imageView.loadImageUrl(response.image.large)
+                        binding.titleTextView.text = response.name
+                        binding.priceTextView.text = response.marketData.currentPrice.usd.toCurrency()
+                        binding.lowestTextView.text = response.marketData.lowestPrice24h.usd.toCurrency()
+                        binding.highestTextView.text = response.marketData.highestPrice24h.usd.toCurrency()
+                        binding.hashTextView.text = response.hashingAlgorithm
+                        binding.descriptionTextView.text = response.description.en.htmlToString()
+
                     }
                     Log.d("Detail Response", it.responseObject.toString())
                 }
