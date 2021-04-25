@@ -82,4 +82,7 @@ dependencies {
     //Helper for easy request with retrofit & view model
     implementation "com.github.murgupluoglu:request-android:4.2.0"
 
+    //Paging
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0-alpha13"
+
 }

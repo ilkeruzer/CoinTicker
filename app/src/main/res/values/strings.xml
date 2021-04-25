@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CoinTicker</string>
+    <string name="coin_search">Koin Ara</string>
 </resources>
