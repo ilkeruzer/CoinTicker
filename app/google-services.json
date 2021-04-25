@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "142745847616",
+    "project_id": "cointicker-b4a77",
+    "storage_bucket": "cointicker-b4a77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142745847616:android:1d88fbfc146a2676231ca5",
+        "android_client_info": {
+          "package_name": "com.ilkeruzer.cointicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142745847616-ogoarpqr2ovoed1r160o456d1ef8li8c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFClgg8d4yHAJCeYzWILsFr7H0c2X0yuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142745847616-ogoarpqr2ovoed1r160o456d1ef8li8c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

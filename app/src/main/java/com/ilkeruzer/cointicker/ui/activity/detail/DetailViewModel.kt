@@ -1,8 +1,6 @@
 package com.ilkeruzer.cointicker.ui.activity.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ilkeruzer.cointicker.data.remote.NetworkModule
 import com.ilkeruzer.cointicker.data.remote.model.CoinDetailResponse
 import com.ilkeruzer.cointicker.util.SingleLiveEvent
@@ -19,15 +17,25 @@ class DetailViewModel(
     private val _coinResponse: SingleLiveEvent<RESPONSE<CoinDetailResponse>> = SingleLiveEvent()
     val coinResponse: LiveData<RESPONSE<CoinDetailResponse>> = _coinResponse
 
+    private val repeatTime = MutableLiveData<Long>(5000)
 
 
-    fun getCoin(id: String) = CoroutineScope(Dispatchers.IO).launchPeriodicAsync(10000) {
+
+
+
+    fun getCoin(id: String) = CoroutineScope(Dispatchers.IO).launchPeriodicAsync(repeatTime.value!!) {
             _coinResponse.request(
                 viewModelScope = viewModelScope,
                 suspendfun = {
                     networkModule.service().getCoinById(id)
                 }
             )
+    }
+
+    fun setRepeatTime(text: String) {
+        getCoin("bitcoin").cancel()
+        repeatTime.value = text.toLong() * 1000
+        getCoin("bitcoin").start()
     }
 
 
