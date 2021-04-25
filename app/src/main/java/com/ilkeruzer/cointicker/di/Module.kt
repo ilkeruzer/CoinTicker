@@ -2,6 +2,8 @@ package com.ilkeruzer.cointicker.di
 
 import com.ilkeruzer.cointicker.data.local.CoinDatabase
 import com.ilkeruzer.cointicker.data.remote.NetworkModule
+import com.ilkeruzer.cointicker.ui.activity.detail.DetailViewModel
+import com.ilkeruzer.cointicker.ui.activity.login.LoginViewModel
 import com.ilkeruzer.cointicker.ui.activity.main.MainViewModel
 import com.ilkeruzer.cointicker.ui.adapter.CoinAdapter
 import org.koin.android.ext.koin.androidContext
@@ -20,4 +22,6 @@ val appModule = module {
 val viewModelModule = module {
 
     viewModel { MainViewModel(get(),get()) }
+    viewModel { DetailViewModel(get()) }
+    viewModel { LoginViewModel() }
 }
