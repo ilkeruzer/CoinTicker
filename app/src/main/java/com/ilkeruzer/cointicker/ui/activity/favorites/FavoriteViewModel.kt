@@ -23,11 +23,9 @@ class FavoriteViewModel : ViewModel() {
         .document(firebaseAuth.currentUser.uid)
         .collection("favorite")
 
-    init {
-        getAllFavorite()
-    }
 
-    private fun getAllFavorite() {
+
+    fun getAllFavorite() {
         coinList.clear()
         db.get()
             .addOnSuccessListener { document ->
