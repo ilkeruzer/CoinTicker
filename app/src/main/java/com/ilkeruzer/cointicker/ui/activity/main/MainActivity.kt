@@ -113,6 +113,6 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
     }
 
     override fun coinAdapterItemClicked(data: CoinDbModel) {
-        startActivity(Intent(this,DetailActivity::class.java))
+        startActivity(Intent(this,DetailActivity::class.java).putExtra("data",data))
     }
 }

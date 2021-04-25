@@ -8,7 +8,9 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.ilkeruzer.cointicker.R
+import com.ilkeruzer.cointicker.data.local.CoinDbModel
 import com.ilkeruzer.cointicker.databinding.ActivityDetailBinding
 import com.ilkeruzer.cointicker.util.extention.*
 import com.murgupluoglu.request.STATUS_ERROR
@@ -22,15 +24,54 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private val viewModel: DetailViewModel by viewModel()
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel.getCoin("bitcoin")
+        getData()
+        viewModel.isFavourite()
+        viewModel.getCoin()
         coinObserve()
+        addedFavoriteObserve()
+        isFavoriteObserve()
+        deleteObserve()
+    }
 
+    private fun deleteObserve() {
+        viewModel.isFavouriteDeleted.observe(this, {
+            if (it) {
+                menu?.findItem(R.id.favorite_menu)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border)
+            }
+        })
+    }
+
+    private fun isFavoriteObserve() {
+        viewModel.isFavourite.observe(this, {
+            if (it) {
+                viewModel.favourite = true
+                menu?.findItem(R.id.favorite_menu)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite)
+            } else {
+                viewModel.favourite = false
+                menu?.findItem(R.id.favorite_menu)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border)
+            }
+        })
+    }
+
+    private fun addedFavoriteObserve() {
+        viewModel.addedFavorite.observe(this, {
+            Log.d("added", it.toString())
+            if (it) {
+                menu?.findItem(R.id.favorite_menu)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite)
+            }
+        })
+    }
+
+    private fun getData() {
+        intent?.extras?.get("data")?.let {
+            viewModel.setCoinExtras(it as CoinDbModel)
+        }
     }
 
     private fun coinObserve() {
@@ -66,11 +107,14 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.getCoin("bitcoin").cancel()
+        viewModel.getCoin().cancel()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_coin_detail, menu)
+        if (menu != null) {
+            this.menu = menu
+        }
         return true
     }
 
@@ -93,6 +137,15 @@ class DetailActivity : AppCompatActivity() {
                     viewModel.setRepeatTime(input.text.toString())
                  }
                 alertDialog.show()
+            }
+
+            R.id.favorite_menu -> {
+                if (viewModel.favourite) {
+                    viewModel.deleteFavourite()
+                } else {
+                    viewModel.addToFavourites()
+                }
+                viewModel.favourite = !viewModel.favourite
             }
         }
 

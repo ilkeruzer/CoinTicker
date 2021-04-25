@@ -6,6 +6,11 @@
         android:id="@+id/repeat_menu"
         android:title="@string/repeat_time"
         android:icon="@drawable/ic_repeat"
-        app:showAsAction="always|collapseActionView" />
+        app:showAsAction="ifRoom|collapseActionView" />
+    <item
+        android:id="@+id/favorite_menu"
+        android:title="@string/favorite"
+        android:icon="@drawable/ic_favorite_border"
+        app:showAsAction="always|collapseActionView"/>
 
 </menu>

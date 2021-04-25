@@ -10,4 +10,5 @@
     <string name="repeat_time">Repeat Time</string>
     <string name="email">E-mail</string>
     <string name="login">login</string>
+    <string name="favorite">Favorite</string>
 </resources>
