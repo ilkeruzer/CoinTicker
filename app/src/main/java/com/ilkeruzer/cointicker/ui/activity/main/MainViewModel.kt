@@ -18,43 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val networkModule: NetworkModule,
     private val coinDatabase: CoinDatabase
 ) : ViewModel() {
 
-    private val _coinResponse: SingleLiveEvent<RESPONSE<List<CoinResponse>>> = SingleLiveEvent()
-    val coinResponse: LiveData<RESPONSE<List<CoinResponse>>> = _coinResponse
-
-    init {
-        clearAllCoin()
-        getAllCoin()
-    }
-
-    private fun clearAllCoin() = CoroutineScope(Dispatchers.IO).launch {
-        coinDatabase.coinDao().clearStation()
-    }
-
-    private fun getAllCoin() {
-        _coinResponse.request(
-            viewModelScope = viewModelScope,
-            suspendfun = {
-                networkModule.service().coinList()
-            })
-    }
-
-    fun insertLocalDb(list: List<CoinResponse>) = CoroutineScope(Dispatchers.IO).launch {
-        val dbList = ArrayList<CoinDbModel>()
-        list.forEach {
-            dbList.add(
-                CoinDbModel(
-                    code = it.id,
-                    symbol = it.symbol,
-                    name = it.name
-            ))
-        }
-
-        coinDatabase.coinDao().insertAll(dbList)
-    }
 
     fun flow(search: String = "") = Pager(
         PagingConfig(pageSize = 20)

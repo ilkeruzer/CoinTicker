@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initPagerAdapter()
-        allCoinObserve()
         allLocalDbCoinObserve()
         adapterLoadState()
     }
@@ -69,23 +68,6 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
         }
     }
 
-    private fun allCoinObserve() {
-        viewModel.coinResponse.observe(this, {
-            when (it.status) {
-                STATUS_LOADING -> {
-                }
-                STATUS_SUCCESS -> {
-                    it.responseObject?.let { list ->
-                        viewModel.insertLocalDb(list)
-                    }
-                    Log.d("MainActivity", it.responseObject.toString())
-                }
-                STATUS_ERROR -> {
-                    Log.e("MainActivity", it.errorMessage)
-                }
-            }
-        })
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_coin_list, menu)

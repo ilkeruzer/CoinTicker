@@ -21,7 +21,7 @@ val appModule = module {
 
 val viewModelModule = module {
 
-    viewModel { MainViewModel(get(),get()) }
+    viewModel { MainViewModel(get()) }
     viewModel { DetailViewModel(get()) }
-    viewModel { LoginViewModel() }
+    viewModel { LoginViewModel(get(),get()) }
 }
