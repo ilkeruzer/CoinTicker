@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CoinTicker">
+        <activity android:name=".ui.activity.favorites.FavoriteActivity"></activity>
+        <activity android:name=".ui.activity.favorites.FavoriteFragment" />
         <activity android:name=".ui.activity.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.detail.DetailActivity" />
-        <activity android:name=".ui.activity.main.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.activity.main.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

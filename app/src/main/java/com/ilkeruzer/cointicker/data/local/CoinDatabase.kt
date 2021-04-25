@@ -1,8 +1,10 @@
 package com.ilkeruzer.cointicker.data.local
 
 import android.content.Context
+import android.os.Parcelable
 import androidx.paging.PagingSource
 import androidx.room.*
+import kotlinx.parcelize.Parcelize
 
 @Database(
     entities = [CoinDbModel::class],
@@ -46,9 +48,10 @@ interface CoinDao {
 }
 
 @Entity(tableName = "coins")
+@Parcelize
 data class CoinDbModel(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    val code: String,
-    val symbol: String,
-    val name: String
-)
+    val code: String = "",
+    val symbol: String = "",
+    val name: String = ""
+) : Parcelable
