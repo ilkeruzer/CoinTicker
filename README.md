@@ -15,7 +15,7 @@
  
  4-)My Coins Page and its Cloud Firestore feature 
  
- 5-) Using Library
+ 5-) Tech stack
   - Kotlin 
   - Dependency Injection (Koin)
   - Software Design Architecture (MVVM)
