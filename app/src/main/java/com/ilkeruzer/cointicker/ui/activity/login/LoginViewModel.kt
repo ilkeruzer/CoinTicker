@@ -18,9 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val networkModule: NetworkModule,
-    private val coinDatabase: CoinDatabase
-): ViewModel() {
+        private val networkModule: NetworkModule,
+        private val coinDatabase: CoinDatabase
+) : ViewModel() {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
 
@@ -36,7 +36,7 @@ class LoginViewModel(
 
     init {
         clearAllCoin()
-        login("test@cointicker.com","123456")
+        login("test@cointicker.com", "123456")
     }
 
     private fun clearAllCoin() = CoroutineScope(Dispatchers.IO).launch {
@@ -45,31 +45,31 @@ class LoginViewModel(
 
     fun login(email: String, password: String) = viewModelScope.launch {
         firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                _status.postValue(true)
-            }.addOnFailureListener { exception ->
-                _status.postValue(false)
-                Log.v("errorLogin", exception.toString())
-            }
+                .addOnSuccessListener {
+                    _status.postValue(true)
+                }.addOnFailureListener { exception ->
+                    _status.postValue(false)
+                    Log.v("errorLogin", exception.toString())
+                }
     }
 
-     fun getAllCoin() {
+    fun getAllCoin() {
         _coinResponse.request(
-            viewModelScope = viewModelScope,
-            suspendfun = {
-                networkModule.service().coinList()
-            })
+                viewModelScope = viewModelScope,
+                suspendfun = {
+                    networkModule.service().coinList()
+                })
     }
 
     fun insertLocalDb(list: List<CoinResponse>) = CoroutineScope(Dispatchers.IO).launch {
         val dbList = ArrayList<CoinDbModel>()
         list.forEach {
             dbList.add(
-                CoinDbModel(
-                    code = it.id,
-                    symbol = it.symbol,
-                    name = it.name
-                )
+                    CoinDbModel(
+                            code = it.id,
+                            symbol = it.symbol,
+                            name = it.name
+                    )
             )
         }
 

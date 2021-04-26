@@ -15,8 +15,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class DetailViewModel(
-    private val networkModule: NetworkModule
-): ViewModel() {
+        private val networkModule: NetworkModule
+) : ViewModel() {
 
     private val _coinResponse: SingleLiveEvent<RESPONSE<CoinDetailResponse>> = SingleLiveEvent()
     val coinResponse: LiveData<RESPONSE<CoinDetailResponse>> = _coinResponse
@@ -39,19 +39,18 @@ class DetailViewModel(
 
 
     private val db = Firebase.firestore
-        .collection("Cryptocurrency")
-        .document(firebaseAuth.currentUser.uid)
-        .collection("favorite")
-
+            .collection("Cryptocurrency")
+            .document(firebaseAuth.currentUser.uid)
+            .collection("favorite")
 
 
     fun getCoin() = CoroutineScope(Dispatchers.IO).launchPeriodicAsync(repeatTime.value!!) {
-            _coinResponse.request(
+        _coinResponse.request(
                 viewModelScope = viewModelScope,
                 suspendfun = {
                     networkModule.service().getCoinById(coinDbModel.code)
                 }
-            )
+        )
     }
 
     fun addToFavourites() {
@@ -59,12 +58,12 @@ class DetailViewModel(
         val favouriteDocument = db.document(coinDbModel.name)
 
         favouriteDocument.set(coinDbModel)
-            .addOnSuccessListener {
-                _addedFavorite.postValue(true)
-            }
-            .addOnFailureListener {
-                _addedFavorite.postValue(false)
-            }
+                .addOnSuccessListener {
+                    _addedFavorite.postValue(true)
+                }
+                .addOnFailureListener {
+                    _addedFavorite.postValue(false)
+                }
 
     }
 

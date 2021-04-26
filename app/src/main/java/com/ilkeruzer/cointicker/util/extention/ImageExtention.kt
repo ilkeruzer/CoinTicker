@@ -8,12 +8,12 @@ import com.ilkeruzer.cointicker.R
 
 fun ImageView.loadImageUrl(url: String) {
     Glide.with(this.context)
-        .load(url)
-        .apply(
-            RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-        )
-        .error(R.drawable.ic_image_not_supported)
-        .into(this)
+            .load(url)
+            .apply(
+                    RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            )
+            .error(R.drawable.ic_image_not_supported)
+            .into(this)
 
 }

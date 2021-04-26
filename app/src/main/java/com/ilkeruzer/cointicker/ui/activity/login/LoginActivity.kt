@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.insertStatus.observe(this, {
             if (it) {
                 hideProgressDialog()
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
         })

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
     }
 
     private fun allLocalDbCoinObserve(search: String = "") {
-        lifecycleScope.launchWhenCreated  {
+        lifecycleScope.launchWhenCreated {
             viewModel.flow(search).collectLatest { pagingData ->
                 coinAdapter.submitData(pagingData)
             }
@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
     private fun adapterLoadState() {
         lifecycleScope.launchWhenCreated {
             coinAdapter.loadStateFlow.distinctUntilChangedBy { it.refresh }
-                .filter { it.refresh is LoadState.NotLoading }.collect {
-                    binding.recList.scrollToPosition(0)
-                }
+                    .filter { it.refresh is LoadState.NotLoading }.collect {
+                        binding.recList.scrollToPosition(0)
+                    }
         }
     }
 
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
 
         when (item.itemId) {
             R.id.action_favorite -> {
-                startActivity(Intent(this,FavoriteActivity::class.java))
+                startActivity(Intent(this, FavoriteActivity::class.java))
             }
         }
 
@@ -105,9 +105,8 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
         override fun onQueryTextChange(newText: String?): Boolean {
             if (newText.isNullOrEmpty().not()) {
                 allLocalDbCoinObserve(newText.toString())
-                Log.d("search",newText.toString())
-            }
-            else {
+                Log.d("search", newText.toString())
+            } else {
                 allLocalDbCoinObserve()
             }
 
@@ -116,6 +115,6 @@ class MainActivity : AppCompatActivity(), CoinAdapter.CoinAdapterListener {
     }
 
     override fun coinAdapterItemClicked(data: CoinDbModel) {
-        startActivity(Intent(this,DetailActivity::class.java).putExtra("data",data))
+        startActivity(Intent(this, DetailActivity::class.java).putExtra("data", data))
     }
 }

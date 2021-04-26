@@ -18,12 +18,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val coinDatabase: CoinDatabase
+        private val coinDatabase: CoinDatabase
 ) : ViewModel() {
 
 
     fun flow(search: String = "") = Pager(
-        PagingConfig(pageSize = 20)
+            PagingConfig(pageSize = 20)
     ) {
         if (search == "") {
             coinDatabase.coinDao().getAllCoins()
@@ -31,5 +31,5 @@ class MainViewModel(
             coinDatabase.coinDao().getCoinsBySearch(search)
         }
     }.flow
-        .cachedIn(viewModelScope)
+            .cachedIn(viewModelScope)
 }

@@ -11,6 +11,6 @@
         android:id="@+id/favorite_menu"
         android:title="@string/favorite"
         android:icon="@drawable/ic_favorite_border"
-        app:showAsAction="always|collapseActionView"/>
+        app:showAsAction="always|collapseActionView" />
 
 </menu>

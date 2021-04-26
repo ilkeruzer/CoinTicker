@@ -98,7 +98,6 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
 
-
     // Firebase Auth, CloudFirestore And Analytics
     implementation "com.google.firebase:firebase-analytics:18.0.3"
     implementation "com.google.firebase:firebase-auth:20.0.4"

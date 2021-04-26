@@ -8,12 +8,12 @@ import com.ilkeruzer.cointicker.data.local.CoinDbModel
 import com.ilkeruzer.cointicker.databinding.ItemCoinLayoutBinding
 
 class FavoriteAdapter(
-    var coins: List<CoinDbModel>
-): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+        var coins: List<CoinDbModel>
+) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
-    private var listener: FavoritesListener?= null
+    private var listener: FavoritesListener? = null
 
-    inner class FavoriteViewHolder(itemView: ItemCoinLayoutBinding): RecyclerView.ViewHolder(itemView.root) {
+    inner class FavoriteViewHolder(itemView: ItemCoinLayoutBinding) : RecyclerView.ViewHolder(itemView.root) {
 
         private var binding = itemView
 
@@ -32,7 +32,7 @@ class FavoriteAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        val binding = ItemCoinLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemCoinLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavoriteViewHolder(binding)
     }
 

@@ -7,21 +7,21 @@ import androidx.room.*
 import kotlinx.parcelize.Parcelize
 
 @Database(
-    entities = [CoinDbModel::class],
-    version = 1,
-    exportSchema = false
+        entities = [CoinDbModel::class],
+        version = 1,
+        exportSchema = false
 )
 abstract class CoinDatabase : RoomDatabase() {
 
     companion object {
         fun create(context: Context): CoinDatabase {
             return Room.databaseBuilder(
-                context,
-                CoinDatabase::class.java,
-                "cryptocurrency.db"
+                    context,
+                    CoinDatabase::class.java,
+                    "cryptocurrency.db"
             )
-                .fallbackToDestructiveMigration()
-                .build()
+                    .fallbackToDestructiveMigration()
+                    .build()
         }
     }
 
@@ -50,8 +50,8 @@ interface CoinDao {
 @Entity(tableName = "coins")
 @Parcelize
 data class CoinDbModel(
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    val code: String = "",
-    val symbol: String = "",
-    val name: String = ""
+        @PrimaryKey(autoGenerate = true) val id: Int? = null,
+        val code: String = "",
+        val symbol: String = "",
+        val name: String = ""
 ) : Parcelable

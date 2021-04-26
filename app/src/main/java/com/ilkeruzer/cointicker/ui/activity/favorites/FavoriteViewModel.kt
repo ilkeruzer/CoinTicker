@@ -19,29 +19,28 @@ class FavoriteViewModel : ViewModel() {
 
 
     private val db = Firebase.firestore
-        .collection("Cryptocurrency")
-        .document(firebaseAuth.currentUser.uid)
-        .collection("favorite")
-
+            .collection("Cryptocurrency")
+            .document(firebaseAuth.currentUser.uid)
+            .collection("favorite")
 
 
     fun getAllFavorite() {
         coinList.clear()
         db.get()
-            .addOnSuccessListener { document ->
-                val list = document.documents
-                list.forEach {
-                    val coinDbModel = it.toObject(CoinDbModel::class.java)
-                    coinDbModel?.let { favorite ->
-                        coinList.add(favorite)
+                .addOnSuccessListener { document ->
+                    val list = document.documents
+                    list.forEach {
+                        val coinDbModel = it.toObject(CoinDbModel::class.java)
+                        coinDbModel?.let { favorite ->
+                            coinList.add(favorite)
+                        }
                     }
+                    _coinState.value = true
                 }
-                _coinState.value = true
-            }
-            .addOnFailureListener { exception ->
-                Log.e("error", exception.toString())
-                _coinState.value = false
-            }
+                .addOnFailureListener { exception ->
+                    Log.e("error", exception.toString())
+                    _coinState.value = false
+                }
     }
 
     fun getAllCoin(): List<CoinDbModel> {

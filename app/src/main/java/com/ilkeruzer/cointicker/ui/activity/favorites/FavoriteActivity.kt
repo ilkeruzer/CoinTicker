@@ -50,8 +50,7 @@ class FavoriteActivity : AppCompatActivity(), FavoriteAdapter.FavoritesListener 
     }
 
 
-
     override fun favoriteClicked(data: CoinDbModel) {
-        startActivity(Intent(this, DetailActivity::class.java).putExtra("data",data))
+        startActivity(Intent(this, DetailActivity::class.java).putExtra("data", data))
     }
 }

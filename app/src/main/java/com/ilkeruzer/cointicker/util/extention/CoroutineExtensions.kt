@@ -5,8 +5,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 
 fun CoroutineScope.launchPeriodicAsync(
-    repeatMillis: Long,
-    action: () -> Unit
+        repeatMillis: Long,
+        action: () -> Unit
 ) = this.async {
     if (repeatMillis > 0) {
         while (true) {

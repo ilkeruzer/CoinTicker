@@ -86,11 +86,11 @@ class DetailActivity : AppCompatActivity() {
                         binding.imageView.loadImageUrl(response.image.large)
                         binding.titleTextView.text = response.name
                         binding.priceTextView.text =
-                            response.marketData.currentPrice.usd.toCurrency()
+                                response.marketData.currentPrice.usd.toCurrency()
                         binding.lowestTextView.text =
-                            response.marketData.lowestPrice24h.usd.toCurrency()
+                                response.marketData.lowestPrice24h.usd.toCurrency()
                         binding.highestTextView.text =
-                            response.marketData.highestPrice24h.usd.toCurrency()
+                                response.marketData.highestPrice24h.usd.toCurrency()
                         binding.hashTextView.text = response.hashingAlgorithm
                         binding.descriptionTextView.text = response.description.en.htmlToString()
 
@@ -126,16 +126,16 @@ class DetailActivity : AppCompatActivity() {
                 val input: EditText = EditText(this)
                 input.hint = "Write Second"
                 input.inputType = InputType.TYPE_CLASS_NUMBER
-                input.setPadding(64,16,64,16)
+                input.setPadding(64, 16, 64, 16)
                 alertDialog.setTitle(getString(R.string.repeat_time))
                 alertDialog.setMessage("Change Repeat time")
                 alertDialog.setView(input)
                 alertDialog.setButton(
-                    AlertDialog.BUTTON_NEUTRAL, "OK"
+                        AlertDialog.BUTTON_NEUTRAL, "OK"
                 ) { dialog, which ->
                     dialog.dismiss()
                     viewModel.setRepeatTime(input.text.toString())
-                 }
+                }
                 alertDialog.show()
             }
 

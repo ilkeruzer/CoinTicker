@@ -45,19 +45,19 @@ class CoinAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCoinLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemCoinLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     inner class ViewHolder(itemView: ItemCoinLayoutBinding) :
-        RecyclerView.ViewHolder(itemView.root) {
+            RecyclerView.ViewHolder(itemView.root) {
 
         private var binding = itemView
 
         fun bind(data: CoinDbModel) {
             binding.nameTextView.text = data.name
             binding.symbolTextView.text = data.symbol
-            Log.d("count",data.code)
+            Log.d("count", data.code)
 
             binding.root.setOnClickListener {
                 listener?.coinAdapterItemClicked(data)

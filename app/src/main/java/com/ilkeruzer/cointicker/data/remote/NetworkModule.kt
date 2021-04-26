@@ -25,7 +25,7 @@ class NetworkModule {
 
         //val clt = httpClient.build()
         val clt =
-            getUnsafeOkHttpClient(httpClient).build() //(for user certificate https handshake problem)
+                getUnsafeOkHttpClient(httpClient).build() //(for user certificate https handshake problem)
         val retrofit = getRetrofitBuilder(clt).build()
 
         return retrofit.create(IService::class.java)
@@ -71,14 +71,11 @@ fun getUnsafeOkHttpClient(builder: OkHttpClient.Builder): OkHttpClient.Builder {
 
 fun getHttpClient(addAccessToken: Boolean = true): OkHttpClient.Builder {
     val logging = HttpLoggingInterceptor(CustomHttpLogger())
-      if (BuildConfig.DEBUG) {
-          logging.level = HttpLoggingInterceptor.Level.BODY
-      } else {
-          logging.level = HttpLoggingInterceptor.Level.NONE
-      }
-
-
-
+    if (BuildConfig.DEBUG) {
+        logging.level = HttpLoggingInterceptor.Level.BODY
+    } else {
+        logging.level = HttpLoggingInterceptor.Level.NONE
+    }
 
 
     val httpClient = OkHttpClient.Builder()
@@ -91,7 +88,7 @@ fun getHttpClient(addAccessToken: Boolean = true): OkHttpClient.Builder {
 
 fun getRetrofitBuilder(client: OkHttpClient): Retrofit.Builder {
     return Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(PROJECT_URL)
-        .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(PROJECT_URL)
+            .client(client)
 }
